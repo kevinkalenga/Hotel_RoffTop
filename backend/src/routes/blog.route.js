@@ -85,4 +85,27 @@ router.get("/:id", async (req, res) => {
     }
 })
 
+// Update a blog post 
+
+router.patch("/update-post/:id", async (req, res) => {
+    try {
+        const postId = req.params.id
+        const updatedPost = await Blog.findByIdAndUpdate(postId, {
+            ...req.body
+        }, { new: true })
+
+        if (!updatedPost) {
+            return res.status(404).send({ message: "Post not found" })
+        }
+        res.status(200).send({
+            message: "Post updated successfully",
+            post: updatedPost
+        })
+
+    } catch (error) {
+        console.error("Error updating post: ", error)
+        res.status(500).send({ message: "Error updating post" })
+    }
+})
+
 export default router;

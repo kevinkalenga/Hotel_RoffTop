@@ -108,4 +108,24 @@ router.patch("/update-post/:id", async (req, res) => {
     }
 })
 
+// Delete a blog 
+router.delete("/:id", async (req, res) => {
+    try {
+        const postId = req.params.id
+        const post = await Blog.findByIdAndDelete(postId)
+        if (!post) {
+            return res.status(400).send({ message: "Post not found" })
+        }
+
+        res.status(200).send({
+            message: "Post deleted successfully",
+            post
+        })
+
+    } catch (error) {
+        console.error("Error deleting post: ", error)
+        res.status(500).send({ message: "Error deleting post" })
+    }
+})
+
 export default router;

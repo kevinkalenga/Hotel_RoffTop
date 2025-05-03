@@ -1,5 +1,6 @@
 import express from "express";
-import User from "../models/user.model.js"
+import User from "../models/user.model.js";
+
 
 const router = express.Router();
 
@@ -7,7 +8,7 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
     try {
         const { email, password, username } = req.body
-        const user = User({ email, password, username })
+        const user = User({ username, email, password })
         // console.log(user)
         await user.save();
         res.status(200).send({ message: "User registration successfully!" })

@@ -15,9 +15,11 @@ app.use(cors())
 // routes
 import blogRoutes from "./src/routes/blog.route.js"
 import commentRoutes from "./src/routes/comment.route.js"
+import userRoutes from "./src/routes/user.route.js"
 
 app.use('/api/blogs', blogRoutes)
 app.use('/api/comments', commentRoutes)
+app.use('/api/users', userRoutes)
 
 
 

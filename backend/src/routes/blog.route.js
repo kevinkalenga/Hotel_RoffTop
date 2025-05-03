@@ -23,7 +23,16 @@ router.post("/create-post", async (req, res) => {
 
 // get all blogs
 router.get('/', async (req, res) => {
-    res.send("Blog route is here")
+    try {
+        const post = await Blog.find();
+        res.status(200).send({
+            message: "All posts retrieved successfully",
+            posts: post
+        })
+    } catch (error) {
+
+    }
+
 })
 
 export default router;

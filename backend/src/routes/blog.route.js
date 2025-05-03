@@ -59,9 +59,30 @@ router.get('/', async (req, res) => {
             posts: post
         })
     } catch (error) {
-
+        console.error("Error fetch all post: ", error)
+        res.status(500).send({ message: "Error fetching all post" })
     }
 
+})
+
+// Get single blog by id 
+router.get("/:id", async (req, res) => {
+    try {
+        // console.log(req.params.id);
+        const postId = req.params.id
+        const post = await Blog.findById(postId);
+        if (!post) {
+            return res.status(404).send({ message: "Post not found" })
+        }
+        // Todo: With also fetch comment related to the post
+        res.status(200).send({
+            message: "Post retrieved successfully",
+            post
+        })
+    } catch (error) {
+        console.error("Error fetch single post: ", error)
+        res.status(500).send({ message: "Error fetching single post" })
+    }
 })
 
 export default router;

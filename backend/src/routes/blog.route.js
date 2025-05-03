@@ -1,5 +1,6 @@
 import express from "express";
-import Blog from "../models/blog.model.js"
+import Blog from "../models/blog.model.js";
+import Comment from "../models/comment.model.js";
 
 const router = express.Router();
 
@@ -74,7 +75,8 @@ router.get("/:id", async (req, res) => {
         if (!post) {
             return res.status(404).send({ message: "Post not found" })
         }
-        // Todo: With also fetch comment related to the post
+        // Todo: With also fetch comment related to the post and populate to combine Comment with Blog
+        const comment = await Comment.find({ postId: postId }).populate('user', "username email")
         res.status(200).send({
             message: "Post retrieved successfully",
             post
@@ -116,6 +118,9 @@ router.delete("/:id", async (req, res) => {
         if (!post) {
             return res.status(400).send({ message: "Post not found" })
         }
+
+        // delete related comments
+        await Comment.deleteMany({ postId: postId })
 
         res.status(200).send({
             message: "Post deleted successfully",

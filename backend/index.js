@@ -12,6 +12,11 @@ const port = process.env.PORT || 5000
 app.use(express.json());
 app.use(cors())
 
+// routes
+import blogRoutes from "./src/routes/blog.route.js"
+
+app.use('/api/blogs', blogRoutes)
+
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => {

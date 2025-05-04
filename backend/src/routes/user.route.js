@@ -96,5 +96,22 @@ router.delete('/users/:id', async (req, res) => {
         res.status(500).json({ message: 'Error deleting user' })
     }
 })
+// update a user role
+router.put('/users/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { role } = req.body
+        const user = await User.findByIdAndUpdate(id, { role }, { new: true });
+        if (!user) {
+            res.status(404).json({ message: 'User not found' })
+        }
+
+        res.status(200).send({ message: "User role updated successfully", user })
+
+    } catch (error) {
+        console.error("Error updating user role", error);
+        res.status(500).json({ message: 'Error updating user role' })
+    }
+})
 
 export default router;

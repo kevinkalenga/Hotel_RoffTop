@@ -1,6 +1,7 @@
 // l'adresse IP de wsl 172.28.195.60 172.17.0.1
 import express from "express";
 import User from "../models/user.model.js";
+import { generateToken } from "../middleware/generateToken.js"
 
 
 const router = express.Router();
@@ -34,9 +35,16 @@ router.post("/login", async (req, res) => {
             return res.status(401).send({ message: "Invalid password!" })
         }
 
-        //    Todo: generate token here
+        // generate token here
+        const token = await generateToken(user._id)
+        // console.log(token)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: true
+        })
         res.status(200).send({
-            message: "Login successful!", user: {
+            message: "Login successful!", token, user: {
                 _id: user._id,
                 email: user.email,
                 username: user.username,

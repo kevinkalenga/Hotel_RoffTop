@@ -1,16 +1,18 @@
 import express from "express";
 import Blog from "../models/blog.model.js";
 import Comment from "../models/comment.model.js";
-import { verifyToken } from "../middleware/verifyToken.js"
+import { verifyToken } from "../middleware/verifyToken.js";
+import { isAdmin } from "../middleware/isAdmin.js"
+
 
 const router = express.Router();
 
 // create a blog 
-router.post("/create-post", verifyToken, async (req, res) => {
+router.post("/create-post", verifyToken, isAdmin, async (req, res) => {
     try {
         // console.log("Blog data from api : ", req.body) 
         // use author: req.userId when you have tokenverify
-        const newPost = new Blog({ ...req.body });
+        const newPost = new Blog({ ...req.body, author: req.userId });
         await newPost.save();
         res.status(201).send({
             message: "Post created successfully",
@@ -91,7 +93,7 @@ router.get("/:id", async (req, res) => {
 
 // Update a blog post 
 
-router.patch("/update-post/:id", verifyToken, async (req, res) => {
+router.patch("/update-post/:id", verifyToken, isAdmin, async (req, res) => {
     try {
         const postId = req.params.id
         const updatedPost = await Blog.findByIdAndUpdate(postId, {
@@ -113,7 +115,7 @@ router.patch("/update-post/:id", verifyToken, async (req, res) => {
 })
 
 // Delete a blog 
-router.delete("/:id", verifyToken, async (req, res) => {
+router.delete("/:id", verifyToken, isAdmin, async (req, res) => {
     try {
         const postId = req.params.id
         const post = await Blog.findByIdAndDelete(postId)

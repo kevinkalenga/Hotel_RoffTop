@@ -40,6 +40,11 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+// Compare password when user tries to login 
+userSchema.methods.comparePassword = function (givenPassword) {
+    return bcryptjs.compare(givenPassword, this.password)
+}
+
 const User = mongoose.model("User", userSchema);
 
 export default User;

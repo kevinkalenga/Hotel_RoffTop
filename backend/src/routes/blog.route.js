@@ -8,6 +8,7 @@ const router = express.Router();
 router.post("/create-post", async (req, res) => {
     try {
         // console.log("Blog data from api : ", req.body) 
+        // use author: req.userId when you have tokenverify
         const newPost = new Blog({ ...req.body });
         await newPost.save();
         res.status(201).send({
@@ -35,7 +36,7 @@ router.get('/', async (req, res) => {
                 ...query,
                 $or: [
                     { title: { $regex: search, $options: "i" } },
-                    { cpntent: { $regex: search, $options: "i" } }
+                    { content: { $regex: search, $options: "i" } }
                 ]
             }
         }
@@ -54,7 +55,7 @@ router.get('/', async (req, res) => {
             }
         }
 
-        const post = await Blog.find(query).sort({ createdAt: -1 });
+        const post = await Blog.find(query).populate('author', 'email').sort({ createdAt: -1 });
         res.status(200).send({
             message: "All posts retrieved successfully",
             posts: post

@@ -10,7 +10,10 @@ const port = process.env.PORT || 5000
 
 // parse options 
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}))
 
 // routes
 import blogRoutes from "./src/routes/blog.route.js"

@@ -1,13 +1,17 @@
-
+import { Outlet } from "react-router-dom"
 import './App.css'
 
 function App() {
 
   return (
     <>
-      <h1 className="font-bold text-center underline text-red-700">
-        My website
-      </h1>
+      <div className="bg-bgPrimary min-h-screen flex flex-col">
+        <na>Navbar</na>
+        <div className="flex-grow">
+          <Outlet />
+        </div>
+        <footer className="mt-auto">Footer</footer>
+      </div>
     </>
   )
 }

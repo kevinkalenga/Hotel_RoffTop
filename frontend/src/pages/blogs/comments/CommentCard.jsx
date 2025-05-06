@@ -1,6 +1,7 @@
 
 import commentorIcon from "../../../assets/commentor.png"
 import { formatDate } from "../../../utils/formateDate"
+import PostAComment from "./PostAComment"
 const CommentCard = ({ comments }) => {
     return (
         <div className="my-6 bg-white p-8">
@@ -33,6 +34,7 @@ const CommentCard = ({ comments }) => {
                 }
             </div>
             {/* comment input here */}
+            <PostAComment />
         </div>
     )
 }

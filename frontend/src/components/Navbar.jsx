@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from "react-router-dom"
 import { IoMenuSharp } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
+import { useSelector, useDispatch } from 'react-redux';
 const navList = [
     { name: "Home", path: "/" },
     { name: "About us", path: "/about-us" },
@@ -11,6 +12,8 @@ const navList = [
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { user } = useSelector((state) => state.auth);
+    console.log(user)
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
     return (
         <header className='bg-white py-6 border'>

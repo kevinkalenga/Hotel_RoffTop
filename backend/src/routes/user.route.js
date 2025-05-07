@@ -2,6 +2,8 @@
 import express from "express";
 import User from "../models/user.model.js";
 import { generateToken } from "../middleware/generateToken.js"
+import authenticateToken from '../middleware/authenticateToken.js';
+
 
 
 const router = express.Router();
@@ -80,6 +82,10 @@ router.get('/users', async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch users' })
     }
 })
+// current user
+router.get('/me', authenticateToken, (req, res) => {
+    res.status(200).json(req.user);
+});
 
 // delete a user 
 router.delete('/users/:id', async (req, res) => {

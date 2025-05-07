@@ -70,7 +70,7 @@ const Navbar = () => {
                         }
 
                         <li className='px-4 mt-5'>
-                            <NavLink to="/login">Login</NavLink>
+                            <NavLink onClick={() => setIsMenuOpen(false)} to="/login">Login</NavLink>
                         </li>
 
                     </ul>

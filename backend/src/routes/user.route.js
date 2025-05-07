@@ -21,7 +21,7 @@ router.post('/register', async (req, res) => {
 })
 
 // login a new user 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         // console.log(req.body)
         const { email, password } = req.body
@@ -73,7 +73,8 @@ router.post("/logout", async (req, res) => {
 router.get('/users', async (req, res) => {
     try {
         const users = await User.find({}, 'id email role');
-        res.status(200).send({ message: "Users found successfully", users })
+        // res.status(200).send({ message: "Users found successfully", users })
+        res.status(200).send(users)
     } catch (error) {
         console.error("Error fetching users", error);
         res.status(500).json({ message: 'Failed to fetch users' })

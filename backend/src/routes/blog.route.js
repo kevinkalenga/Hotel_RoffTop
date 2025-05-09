@@ -78,10 +78,10 @@ router.get("/:id", async (req, res) => {
             return res.status(404).send({ message: "Post not found" })
         }
         // Todo: With also fetch comment related to the post and populate to combine Comment with Blog
-        const comment = await Comment.find({ postId: postId }).populate('user', "username email")
+        const comments = await Comment.find({ postId: postId }).populate('user', "username email")
         res.status(200).send({
-            message: "Post retrieved successfully",
-            post
+            post,
+            comments
         })
     } catch (error) {
         console.error("Error fetch single post: ", error)

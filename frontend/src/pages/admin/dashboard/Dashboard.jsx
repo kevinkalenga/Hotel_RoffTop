@@ -15,8 +15,23 @@ const Dashboard = () => {
     const { data: blogs = [], error, isLoading } = useFetchBlogsQuery(query)
     const { data: comments = [] } = useGetCommentsQuery()
     const { data: users = {} } = useGetUserQuery()
-    const adminCounts = users?.filter(user => user.role === 'admin').length
-    const userCounts = users?.filter(user => user.role === 'user').length
+
+    let adminCounts = 0;
+    let userCounts = 0;
+
+    if (Array.isArray(users)) {
+        users.forEach(user => {
+            if (user.role === 'admin') adminCounts++;
+            else if (user.role === 'user') userCounts++;
+        });
+    }
+    // const adminCounts = Array.isArray(users)
+    //     ? users.filter(user => user.role === 'admin').length
+    //     : 0;
+    // const userCounts = Array.isArray(users)
+    //     ? users.filter(user => user.role === 'user').length
+    //     : 0;
+
     // console.log(users)
     return (
         <>

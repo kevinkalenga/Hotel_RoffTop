@@ -1,4 +1,4 @@
-import { useSelector } from "react-router-dom"
+import { useSelector } from "react-redux"
 import { Outlet } from "react-router-dom"
 import AdminNavigation from './AdminNavigation'
 
@@ -15,7 +15,7 @@ const AdminLayout = () => {
                 <AdminNavigation />
             </header>
             <main className='p-8 bg-white w-full'>
-                <p>For admin content</p>
+
                 <Outlet />
             </main>
         </div>

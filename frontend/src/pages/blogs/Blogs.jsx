@@ -32,7 +32,7 @@ const Blogs = () => {
                         <Link
                             to={`/blogs/${blog._id}`}
                             key={blog._id} className="shadow-md">
-                            <img src={blog.coverImg} alt="" className="h-60 w-full" />
+                            <img src={blog?.coverImg} alt="" className="h-60 w-full" />
                             <h1 className="text-xl p-4">{blog.title}</h1>
                         </Link>
                     ))

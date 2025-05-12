@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 
@@ -10,6 +12,9 @@ const port = process.env.PORT || 5000
 
 // parse options 
 app.use(express.json());
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true

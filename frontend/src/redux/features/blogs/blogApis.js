@@ -7,7 +7,15 @@ export const blogApi = createApi({
     reducerPath: "blogsApi",
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:5000/api/',
-        credentials: 'include'
+        credentials: 'include',
+        prepareHeaders: (headers, { getState }) => {
+            const token = getState().auth.token; // ou auth.user.token si tu stockes le token ici
+            if (token) {
+                headers.set("Authorization", `Bearer ${token}`);
+            }
+            return headers;
+        },
+        credentials: 'include',  // Pour envoyer des cookies avec chaque requête
 
     }),
     tagTypes: ['Blogs'],
@@ -25,11 +33,12 @@ export const blogApi = createApi({
             }),
             postBlog: builder.mutation({
                 query: (newBlog) => ({
-                    url: `/blog/create-post`,
+                    url: `/blogs/create-post`,
                     method: "POST",
                     body: newBlog,
                     credentials: "include"
-                })
+                }),
+                invalidatesTags: ['Blogs'],
             }),
             updateBlog: builder.mutation({
                 query: ({ id, ...rest }) => ({

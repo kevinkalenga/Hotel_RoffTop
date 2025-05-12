@@ -30,3 +30,14 @@ h5 {
     width: 90px;
     border-radius: 50px;
 }
+
+/* input[type="number"] {
+    -moz-appearance: textfield;
+} */
+
+/* Supprimer les flèches dans Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

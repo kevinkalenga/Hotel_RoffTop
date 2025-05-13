@@ -14,6 +14,7 @@ import ManagePosts from "../pages/admin/post/ManagePosts"
 import ManageUser from "../pages/admin/users/ManageUser"
 import PrivateRouter from "./PrivateRouter"
 
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -66,7 +67,8 @@ const router = createBrowserRouter([
                     {
                         path: "users",
                         element: <ManageUser />
-                    }
+                    },
+
                 ]
             }
         ]

@@ -14,12 +14,14 @@ import ManagePosts from "../pages/admin/post/ManagePosts"
 import ManageUser from "../pages/admin/users/ManageUser"
 import PrivateRouter from "./PrivateRouter"
 import UpdatePosts from "../pages/admin/post/UpdatePost"
+import ErrorPage from "../components/ErrorPage";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
